@@ -6,18 +6,22 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.js"
-    
+    "dev": "nodemon server.js",
+    "watch": "watch 'npm run build:css' views",
+    "build:css": "postcss public/styles/tailwind.css -o public/styles/styles.css --watch"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "autoprefixer": "^10.4.7",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "ejs": "^3.1.8",
     "express": "^4.18.1",
+    "express-flash": "0.0.2",
+    "express-session": "^1.17.3",
     "mongoose": "^6.4.0",
     "postcss": "^8.4.14",
     "postcss-cli": "^9.1.0",
