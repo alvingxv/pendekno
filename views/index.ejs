@@ -14,57 +14,75 @@
 
 <body>
     <div class="flex flex-col h-screen bg-[#150423]">
-        <%- include('./components/nav'); %>
-        <div data-aos="zoom-in" class="flex h-full w-full place-self-center place-items-center justify-center ">
-        
+            
+
+        <div data-aos="zoom-in"
+            class="flex h-full w-full place-self-center place-items-center justify-center ">
+
+
             <div class="max-w-3xl w-full p-10">
                 <% if(typeof messages.info !='undefined' ){ %>
-                    <div data-aos="fade-down" class="flex place-self-center place-items-center justify-center mb-2">
-                        <div class="flex items-center gap-4 p-3 text-white bg-[#430676] rounded w-1/2" role="alert">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-red-500" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M20.618 5.984A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016zM12 9v2m0 4h.01" />
-                            </svg>
+                        <div data-aos="fade-down" class="flex place-self-center place-items-center justify-center mb-2">
+                            <div class="inline-flex gap-4 p-3 text-white bg-[#430676] rounded w-max" role="alert">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-red-500" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M20.618 5.984A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016zM12 9v2m0 4h.01" />
+                                </svg>
     
-                            <strong class="text-sm font-normal"><%= messages.info %> </strong>
+                                <strong class="text-sm font-normal">
+                                    <%= messages.info %>
+                                </strong>
+                            </div>
+                        </div>
+                    <%}%>
+                <h1
+                    class="text-center text-4xl md:text-6xl text-slate-200 font-mono place-items-center mb-4">
+                    Pendekno dong!</h1>
+                <form x-data="{ showDropdown: false, state: `Custom Link` }" action="/endekno"
+                    method="POST">
+                    <div class="relative">
+                        <div class="inline-flex w-full mb-2 ">
+                            <input
+                                class="w-full py-3 pl-3 pr-16 text-sm border-2 text-slate-300 border-[#452d6b] rounded-md bg-[#302245]"
+                                name="fullurl" type="url" pattern="https?://.+" required
+                                placeholder="URL" />
+                            <button
+                                class="p-3 text-white bg-[#8343f0] rounded-md right-4 color hover:bg-purple-900 hover:scale-90 ease-in duration-75"
+                                type="submit">
+                                <svg class="fill-white" width="24" height="24"
+                                    xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
+                                    clip-rule="evenodd">
+                                    <path
+                                        d="M14.851 11.923c-.179-.641-.521-1.246-1.025-1.749-1.562-1.562-4.095-1.563-5.657 0l-4.998 4.998c-1.562 1.563-1.563 4.095 0 5.657 1.562 1.563 4.096 1.561 5.656 0l3.842-3.841.333.009c.404 0 .802-.04 1.189-.117l-4.657 4.656c-.975.976-2.255 1.464-3.535 1.464-1.28 0-2.56-.488-3.535-1.464-1.952-1.951-1.952-5.12 0-7.071l4.998-4.998c.975-.976 2.256-1.464 3.536-1.464 1.279 0 2.56.488 3.535 1.464.493.493.861 1.063 1.105 1.672l-.787.784zm-5.703.147c.178.643.521 1.25 1.026 1.756 1.562 1.563 4.096 1.561 5.656 0l4.999-4.998c1.563-1.562 1.563-4.095 0-5.657-1.562-1.562-4.095-1.563-5.657 0l-3.841 3.841-.333-.009c-.404 0-.802.04-1.189.117l4.656-4.656c.975-.976 2.256-1.464 3.536-1.464 1.279 0 2.56.488 3.535 1.464 1.951 1.951 1.951 5.119 0 7.071l-4.999 4.998c-.975.976-2.255 1.464-3.535 1.464-1.28 0-2.56-.488-3.535-1.464-.494-.495-.863-1.067-1.107-1.678l.788-.785z" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div @click="showDropdown = !showDropdown; state = (showDropdown == true ? 'Default Link' : 'Custom Link')"
+                            class="absolute right-4 text-slate-200 hover:text-purple-500">
+                            <p>nggae <span x-text="state"></span></p>
+                        </div>
+                        <div x-transition x-show="showDropdown" class="absolute left-0 ">
+                            <div class="inline-flex align-middle">
+                                <p class="text-slate-200 h-max font-mono">pendekno.com/</p>
+                                <input
+                                    class="w-full py-2 pl-3 pr-16 text-sm border-2 text-slate-300 border-[#452d6b] rounded-md bg-[#302245]"
+                                    name="shorturl" type="text" placeholder="Short Url" />
+                            </div>
                         </div>
                     </div>
-                <%}%>
-                <h1 class="text-center text-4xl md:text-6xl text-slate-200 font-mono place-items-center mb-4">
-                    Pendekno dong!</h1>
-                <form action="/endekno" method="POST">
-                    <div class="relative">
-                        <input
-                            class="w-full py-3 pl-3 pr-16 text-sm border-2 text-slate-300 border-[#452d6b] rounded-md bg-[#302245]"
-                            name="fullurl" type="url" pattern="https?://.+" required placeholder="URL" />
-                        <button
-                            class="absolute p-2 text-white -translate-y-1/2 bg-[#8343f0] rounded-md top-1/2 right-4 color hover:bg-purple-900 hover:scale-90 ease-in duration-75"
-                            type="submit">
-                            <svg class="fill-white" width="24" height="24"
-                                xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd">
-                                <path
-                                    d="M14.851 11.923c-.179-.641-.521-1.246-1.025-1.749-1.562-1.562-4.095-1.563-5.657 0l-4.998 4.998c-1.562 1.563-1.563 4.095 0 5.657 1.562 1.563 4.096 1.561 5.656 0l3.842-3.841.333.009c.404 0 .802-.04 1.189-.117l-4.657 4.656c-.975.976-2.255 1.464-3.535 1.464-1.28 0-2.56-.488-3.535-1.464-1.952-1.951-1.952-5.12 0-7.071l4.998-4.998c.975-.976 2.256-1.464 3.536-1.464 1.279 0 2.56.488 3.535 1.464.493.493.861 1.063 1.105 1.672l-.787.784zm-5.703.147c.178.643.521 1.25 1.026 1.756 1.562 1.563 4.096 1.561 5.656 0l4.999-4.998c1.563-1.562 1.563-4.095 0-5.657-1.562-1.562-4.095-1.563-5.657 0l-3.841 3.841-.333-.009c-.404 0-.802.04-1.189.117l4.656-4.656c.975-.976 2.256-1.464 3.536-1.464 1.279 0 2.56.488 3.535 1.464 1.951 1.951 1.951 5.119 0 7.071l-4.999 4.998c-.975.976-2.255 1.464-3.535 1.464-1.28 0-2.56-.488-3.535-1.464-.494-.495-.863-1.067-1.107-1.678l.788-.785z" />
-                            </svg>
-                        </button>
 
-                    </div>
-                    <div class="inline-flex items-center mt-2 space-x-2">
-                        <p class="text-slate-200 h-max font-mono">pendekno.com/</p>
-                        <input
-                            class="w-full py-2 pl-3 pr-16 text-sm border-2 text-slate-300 border-[#452d6b] rounded-md bg-[#302245]"
-                            name="shorturl" type="text" placeholder="Short Url" />
-                    </div>
                 </form>
             </div>
         </div>
-        
-        <%- include('./components/footer'); %>    
+
+        <%- include('./components/footer'); %>
     </div>
     <!-- <footer class="h-10 bg-blue-500">Footer</footer> -->
-<script>
-    AOS.init();
-</script>
+    <script>
+        AOS.init();
+    </script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </body>
 
 

@@ -9,7 +9,7 @@ publicrouter.get('/', public_controller.home);
 publicrouter.post('/endekno', public_controller.shrink);
 publicrouter.get('/notfound', public_controller.notfound);
 
-publicrouter.get(`/:shorturl/dashboard`, public_controller.test);
+publicrouter.get(`/:shorturl/dashboard`, public_controller.dashboard);
 publicrouter.get(`/:shorturl`, public_controller.redirect);
 
 

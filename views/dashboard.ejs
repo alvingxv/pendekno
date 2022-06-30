@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendekno</title>
+    <link href="../public/styles/styles.css" rel="stylesheet" type="text/css">
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+</head>
+
+<body>
+    <div class="flex flex-col h-screen bg-[#150423]">
+
+        <div data-aos="zoom-in" class="flex h-full w-full place-self-center place-items-center justify-center ">
+
+
+            <div class="max-w-3xl w-full p-10">
+
+                <h1 class="text-center text-4xl md:text-6xl text-slate-200 font-mono place-items-center mb-4">
+                    Hasil Pendekno!</h1>
+                <div class="relative">
+                    <div class="inline-flex w-full mb-2 ">
+                        <div
+                            class="w-full p-3 text-sm border-2 text-slate-300 border-[#452d6b] rounded-md bg-[#302245]">
+                            <h1 class="text-center text-4xl" id="p1">localhost:3000/<%= halo.shorturl %>
+                            </h1>
+                        </div>
+                        <button onclick="handleCopyTextFromParagraph()"
+                            class="p-3 text-white bg-[#8343f0] rounded-md right-4 color hover:bg-purple-900 hover:scale-90 ease-in duration-75">
+                            <svg style="height: 32px; width: 32px; color: rgb(255, 255, 255);"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-copy">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" fill="#ffffff">
+                                </path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <%- include('./components/footer'); %>
+    </div>
+    <!-- <footer class="h-10 bg-blue-500">Footer</footer> -->
+    <script>
+        AOS.init();
+    </script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+        function handleCopyTextFromParagraph() {
+            const cb = navigator.clipboard;
+            const paragraph = document.querySelector('#p1');
+            cb.writeText(paragraph.innerText);
+        }
+    </script>
+</body>
+
+
+</html>

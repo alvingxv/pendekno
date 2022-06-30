@@ -12,7 +12,6 @@ app.use(bodyParser.json());
 const path = require('path')
 
 
-console.log(process.env.MONGODB_URI);
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true })
     .then(() => {
         console.log('connected to mongodb');

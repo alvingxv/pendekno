@@ -1,6 +1,13 @@
 const User = require('../models/user');
 const Url = require('../models/url');
 
+const checkurlcontainspecialchar = (string) => {
+    if (string.indexOf('%') >= 0 || string.indexOf('?') >= 0 || string.indexOf('+') >= 0 || string.indexOf('(') >= 0 || string.indexOf(')') >= 0) {
+        return true;
+    }
+    return false;
+}
+
 
 exports.home = async (req, res, next) => {
     res.render('index');
@@ -8,23 +15,43 @@ exports.home = async (req, res, next) => {
 
 
 exports.shrink = async (req, res, next) => {
-    const halo = await Url.findOne({ shorturl: req.body.shorturl })
-
-    if (halo) {
+    const shorturl = req.body.shorturl;
+    const fullurl = req.body.fullurl;
+    const ada = await Url.findOne({ shorturl })
+    const randomurl = Math.random().toString(36).substring(2, 8) 
+    if (ada) {
         req.flash('info', 'Short URL wes digawe');
+        res.redirect(`/`);
+        return;
+    }
+
+    if (!shorturl) {
+        await Url.create({ fullurl: fullurl, shorturl: randomurl });
+        res.redirect(`/${randomurl}/dashboard`);
+        return;
+    }
+    if (shorturl.indexOf(' ') >= 0) {
+        req.flash('info', 'Short URL cannot contain space');
         res.redirect('/');
         return;
     }
 
-    await Url.create({ fullurl: req.body.fullurl, shorturl: req.body.shorturl });
-    res.redirect('/');
+    if (checkurlcontainspecialchar(shorturl) == true) {
+        req.flash('info', 'Short URL cannot use special character');
+        res.redirect('/');
+        return;
+    }
+    await Url.create({ fullurl: fullurl, shorturl: shorturl });
+    res.redirect(`/${shorturl}/dashboard`);
 }
 
 exports.notfound = async (req, res, next) => {
     return res.render('notfound');
 }
-exports.test = async (req, res, next) => {
-    return res.send('test');
+exports.dashboard = async (req, res, next) => {
+    const halo = await Url.findOne({ shorturl: req.params.shorturl })
+    res.render('dashboard', {halo: halo});
+    return;
 }
 exports.redirect = async (req, res, next) => {
     const halo = await Url.findOne({ shorturl: req.params.shorturl })
