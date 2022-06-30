@@ -50,12 +50,15 @@ exports.notfound = async (req, res, next) => {
 }
 exports.dashboard = async (req, res, next) => {
     const halo = await Url.findOne({ shorturl: req.params.shorturl })
+    console.log(halo);
     res.render('dashboard', {halo: halo});
     return;
 }
 exports.redirect = async (req, res, next) => {
     const halo = await Url.findOne({ shorturl: req.params.shorturl })
     if (halo) {
+        halo.clicks++;
+        halo.save();
         res.redirect(halo.fullurl);
         return;
     }
